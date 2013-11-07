@@ -10,16 +10,25 @@
 
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jdesktop.swingx.JXMapViewer;
 import org.jdesktop.swingx.mapviewer.GeoPosition;
 import org.jdesktop.swingx.mapviewer.TileFactory;
+import org.jdesktop.swingx.mapviewer.Waypoint;
 import org.jdesktop.swingx.mapviewer.WaypointPainter;
-
+import org.jdesktop.swingx.mapviewer.WaypointRenderer;
+import org.jdesktop.swingx.painter.Painter;
+import java.lang.String;
 
 public class BrandSelection extends javax.swing.JFrame {
 
@@ -51,9 +60,9 @@ public class BrandSelection extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jBrandCombo1 = new javax.swing.JComboBox();
         jBrandCombo2 = new javax.swing.JComboBox();
-        jCompareButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jVillanova = new javax.swing.JButton();
+        jImportButton = new javax.swing.JButton();
+        jCompare = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -127,26 +136,24 @@ public class BrandSelection extends javax.swing.JFrame {
             }
         });
 
-        jBrandCombo2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "McD", "Wendy's", "TacoBell", "KFC", "Burger King" }));
-
-        jCompareButton.setText("Compare");
-        jCompareButton.addActionListener(new java.awt.event.ActionListener() {
+        jVillanova.setText("goVillanova");
+        jVillanova.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCompareButtonActionPerformed(evt);
+                jVillanovaActionPerformed(evt);
             }
         });
 
-        jButton1.setText("goVillanova");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jImportButton.setText("Import Brands");
+        jImportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jImportButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("import from file");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jCompare.setText("Compare");
+        jCompare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jCompareActionPerformed(evt);
             }
         });
 
@@ -155,27 +162,25 @@ public class BrandSelection extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(96, 96, 96)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBrandCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBrandCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addComponent(jCompare)
+                        .addGap(71, 71, 71)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jImportButton)
+                            .addComponent(jVillanova, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBrandCombo2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(26, 26, 26)
-                        .addComponent(jBrandCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jCompareButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(16, 16, 16))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,21 +190,19 @@ public class BrandSelection extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jBrandCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(15, 15, 15)))
+                        .addGap(15, 15, 15)
+                        .addComponent(jCompare))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBrandCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jBrandCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jImportButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
-                    .addComponent(jCompareButton))
-                .addContainerGap(23, Short.MAX_VALUE))
+                            .addComponent(jBrandCombo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jVillanova))))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         jLabel4.setText("Correlations:");
@@ -216,12 +219,13 @@ public class BrandSelection extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(41, 41, 41))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 11, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(49, 49, 49)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +236,7 @@ public class BrandSelection extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
         jXMapKit1.setDefaultProvider(org.jdesktop.swingx.JXMapKit.DefaultProviders.OpenStreetMaps);
@@ -243,15 +247,15 @@ public class BrandSelection extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jXMapKit1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jXMapKit1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jXMapKit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jXMapKit1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,9 +265,9 @@ public class BrandSelection extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -280,20 +284,6 @@ public class BrandSelection extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCompareButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCompareButtonActionPerformed
-        // TODO add your handling code here:
-        System.out.println("Clicked Compare button");
-        System.out.println("brand 1:"+jBrandCombo1.getSelectedItem());
-        System.out.println("brand 2:"+jBrandCombo2.getSelectedItem());
-        jValueLabel.setEnabled(true);
-        jValueLabel.setText("4");
-        if(jBrandCombo1.getSelectedIndex()== jBrandCombo2.getSelectedIndex())
-            {
-                jAlertDialog.setVisible(true);
-                System.out.println("Please Select 2 different brands");
-            }
-    }//GEN-LAST:event_jCompareButtonActionPerformed
-
     private void jAlertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAlertButtonActionPerformed
         // TODO add your handling code here:
         jAlertDialog.dispose();
@@ -303,37 +293,152 @@ public class BrandSelection extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBrandCombo1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jVillanovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jVillanovaActionPerformed
         // TODO add your handling code here:
         //jXMapKit1.setAddressLocation(new GeoPosition(41.881944,-87.627778));
         jXMapKit1.setAddressLocation(new  GeoPosition(40.0377,-75.3376));
         jXMapKit1.setBackground(Color.red);
        
         jXMapKit1.getCenterPosition();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jVillanovaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jImportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jImportButtonActionPerformed
         try {
             // TODO add your handling code here:
           
             Scanner myscanner = new Scanner(new File("Brand.txt"));
-            for(int i=0;i<4;i++){
-            jBrandCombo1.addItem(myscanner.nextLine());}
-            myscanner.nextLine();
+           // for(int i=0;i<4;i++)
+            //Adding brands to the combo boxes from the Brand.txt file
+            String brand;
+            while(myscanner.hasNextLine())
+            {
+                brand=myscanner.nextLine();
+                jBrandCombo1.addItem(brand);
+                jBrandCombo2.addItem(brand);
+            }
+            //myscanner.nextLine();
     /*for(int i=1;i<=3;i++){
      *
             myscanner
     }*/ } catch (FileNotFoundException ex) {
             Logger.getLogger(BrandSelection.class.getName()).log(Level.SEVERE, null, ex);
         }
+    	
+    }//GEN-LAST:event_jImportButtonActionPerformed
 
-
-
-	
-	
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    /**
+    private void jCompareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCompareActionPerformed
+                
+            // TODO add your handling code here:
+        jValueLabel.setEnabled(true);
+        if(jBrandCombo1.getSelectedIndex()== jBrandCombo2.getSelectedIndex()){
+            jAlertDialog.setVisible(true);
+            System.out.println("Please Select 2 different brands");
+        }
+        else{
+            Set<Waypoint> waypoints = new HashSet<Waypoint>();     
+            String selection1=(String) jBrandCombo1.getSelectedItem();
+            String selection2=(String) jBrandCombo2.getSelectedItem();
+            try{
+                Scanner scanner = new Scanner(new File("Locations.txt"));
+                //Set the delimiter used in file
+                scanner.useDelimiter(",");
+                //Get all tokens and store them in some data structure
+                //I am just printing them
+                while (scanner.hasNext()) 
+                {
+                    String Brand= scanner.next();        
+                    String latitude= scanner.next();
+                  //  System.out.println(latitude+" latitude | ");
+                    String longitude = scanner.next();
+                //    System.out.println(longitude+" longi | ");
+                    scanner.nextLine();
+                    if(Brand.equalsIgnoreCase(selection1)||Brand.equalsIgnoreCase(selection2)){
+                        double lat= Double.parseDouble(latitude);
+                        double long1= Double.parseDouble(longitude);
+                        waypoints.add(new Waypoint(lat,-long1));                 
+                    }              
+                }      
+                scanner.close();
+                WaypointPainter painter;
+                painter = new WaypointPainter();
+                painter.setWaypoints(waypoints);              
+                jXMapKit1.getMainMap().setOverlayPainter(painter);
+                jXMapKit1.setBackground(Color.red);                            
+           }
+            catch (FileNotFoundException ex) {
+                Logger.getLogger(BrandSelection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        /*  Set<Waypoint> waypoints = new HashSet<Waypoint>();
+         
+             
+           // Set waypoints = new HashSet();
+          //waypoints.add(new Waypoint(41.881944,-87.627778)); sample points
+   // waypoints.add(new Waypoint(40.716667,-74));
+           // jXMapKit1.setAddressLocation(new  GeoPosition(40.716667,-74));
+            //for(int i=0;i<4;i++){
+            
+           
+            waypoints.add(new Waypoint(40.716667,-74));
+             waypoints.add(new Waypoint(41.881944,-87.627778));
+            waypoints.add(new Waypoint(40.026024,-75.327585));
+            waypoints.add(new Waypoint(40.067816,-75.311350));
+            waypoints.add(new Waypoint(40.029364,-75.333029));
+            waypoints.add(new Waypoint(40.043484,-75.378427));
+            WaypointPainter painter;
+            painter = new WaypointPainter();
+            painter.setWaypoints(waypoints);
+              
+              jXMapKit1.getMainMap().setOverlayPainter(painter);
+              jXMapKit1.setBackground(Color.red);
+              // this.jXMapKit1.getMainMap().setOverlayPainter(painter);
+             /*  painter.setRenderer(new WaypointRenderer()
+             {
+              public boolean paintWaypoint(Graphics2D g, JXMapViewer map, Waypoint wp) 
+               {
+                    g.setColor(Color.RED);
+                    g.drawLine(-5,-5,+5,+5);
+                    g.drawLine(-5,+5,+5,-5);
+                    return true;
+                }
+     
+             }); */
+         //  jXMapKit1.getMainMap().setOverlayPainter(painter);
+           //jXMapKit1.getMiniMap().setOverlayPainter(painter);
+        }
+        String combo1=(String)jBrandCombo1.getSelectedItem();
+        String combo2=(String)jBrandCombo2.getSelectedItem();
+        try{
+                Scanner scanner = new Scanner(new File("Corelation.txt"));
+                //Set the delimiter used in file
+                scanner.useDelimiter(",");
+                //Get all tokens and store them in some data structure
+                //I am just printing them
+                while (scanner.hasNext()) 
+                {
+                    String brand1= scanner.next();        
+                   // System.out.println(brand1+" brand1 ");
+                    String brand2= scanner.next();
+                   // System.out.println(brand2+" brand2 ");
+                    String val = scanner.next();
+                   // System.out.println(val+" val ");
+                    
+                    scanner.nextLine();
+                    
+                    if(brand1.equalsIgnoreCase(combo1) && brand2.equalsIgnoreCase(combo2))
+                    {
+                         jValueLabel.setEnabled(true);
+                        jValueLabel.setText(val);
+                       
+                    }
+                    
+                }      
+                scanner.close();                         
+           }
+            catch (FileNotFoundException ex) {
+                Logger.getLogger(BrandSelection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jCompareActionPerformed
+/**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -366,15 +471,15 @@ public class BrandSelection extends javax.swing.JFrame {
                 new BrandSelection().setVisible(true);
             }
         });
+       
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jAlertButton;
     private javax.swing.JDialog jAlertDialog;
     private javax.swing.JComboBox jBrandCombo1;
     private javax.swing.JComboBox jBrandCombo2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jCompareButton;
+    private javax.swing.JButton jCompare;
+    private javax.swing.JButton jImportButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -388,6 +493,7 @@ public class BrandSelection extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel jValueLabel;
+    private javax.swing.JButton jVillanova;
     private org.jdesktop.swingx.JXMapKit jXMapKit1;
     // End of variables declaration//GEN-END:variables
 }
